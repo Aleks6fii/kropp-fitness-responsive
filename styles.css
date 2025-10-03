@@ -426,6 +426,17 @@ p:not([class]):not(:last-child) {
     border-radius: 50%;
 }
 
+/* the code below is to hide arrows for input-number */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
 .input {
   width: 100%;
   height: var(--input-height);
@@ -436,7 +447,8 @@ p:not([class]):not(:last-child) {
   border-radius: var(--border-radius);
 }
 
-.input::placeholder {
+.input::placeholder,
+select.input:invalid {
   color: var(--color-light-gray);
 }
 
@@ -819,6 +831,54 @@ p:not([class]):not(:last-child) {
 .family-image {
   scroll-snap-align: start;
 }
+
+.calculate {
+  padding-block: 146px;
+  background-color: var(--color-dark-alternate);
+}
+
+.calculate-inner {
+  display: flex;
+  align-items: center;
+  column-gap: 36px;
+}
+
+.calculate-body {
+  flex-grow: 1;
+  max-width: 627px;
+}
+
+.calculate-title:not(:last-child) {
+  margin-bottom: 16px;
+}
+
+.calculate-description {
+  min-width: 385px;
+}
+
+.calculate-description:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+.calculate-form-body {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 30px;
+}
+
+.calculate-form-body:not(:last-child) {
+  margin-bottom: 26px;
+}
+
+/* the last element ('activity factor'), which must take the whole width of parent grid */
+/* my approach is to do using ':last-child' */
+.calculate-input:last-child {
+  grid-column: -1 / 1;
+}
+
+/* .calculate-input.wide {
+  grid-column: -1 / 1;
+} */
 
 @media (max-width: 1919px) {
   .motivation-card-image {
